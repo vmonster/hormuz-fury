@@ -1063,17 +1063,20 @@ export class GameScene extends Phaser.Scene {
   }
 
   private showBanner(text: string) {
-    const rect = this.add.rectangle(GAME_W / 2, GAME_H / 2, GAME_W, 110, 0x05101f, 0.85);
+    // Anchored near the top of the play area so it doesn't block the mid-screen
+    // flight path. HUD top bar occupies ~56px, so place the banner just below it.
+    const bannerY = 120;
+    const rect = this.add.rectangle(GAME_W / 2, bannerY, GAME_W, 76, 0x05101f, 0.82);
     rect.setDepth(100);
-    const t = this.add.text(GAME_W / 2, GAME_H / 2, text, {
-      fontSize: '22px', fontStyle: 'bold', align: 'center',
+    const t = this.add.text(GAME_W / 2, bannerY, text, {
+      fontSize: '18px', fontStyle: 'bold', align: 'center',
       color: '#ffe680', stroke: '#05101f', strokeThickness: 4, fontFamily: 'monospace',
     }).setOrigin(0.5).setDepth(101);
     this.tweens.add({
       targets: [rect, t],
       alpha: 0,
-      delay: 1600,
-      duration: 500,
+      delay: 1400,
+      duration: 400,
       onComplete: () => { rect.destroy(); t.destroy(); },
     });
   }

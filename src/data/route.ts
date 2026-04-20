@@ -134,6 +134,11 @@ export const LANDMARK_PLACEMENTS: LandmarkPlacement[] = [
   { kind: 'pearl_qatar',        worldY:  5700, side: 0, waterX: 40 },
   { kind: 'doha_skyline',       worldY:  6000, side: 1, offset: 8 },
 
+  // Iran (left bank) — scattered along the route
+  { kind: 'bushehr_port',       worldY:  1200, side: -1, offset: 4 },
+  { kind: 'kish_island',        worldY: 10200, side: 0, waterX: -40 },
+  { kind: 'bandar_abbas',       worldY: 15800, side: -1, offset: 6 },
+
   // Stage 2 — Qatar → Dubai
   { kind: 'sir_bani_yas',       worldY:  7600, side: 0, waterX: 40 },
   { kind: 'sheikh_zayed_mosque',worldY:  8500, side: 1, offset: 10 },
@@ -143,11 +148,13 @@ export const LANDMARK_PLACEMENTS: LandmarkPlacement[] = [
   { kind: 'etihad_towers',      worldY: 10100, side: 1, offset: 8 },
   // Dubai cluster ~11200-11900
   { kind: 'palm_jumeirah',      worldY: 11300, side: 0, waterX: 55 },  // trunk touches Dubai coast
-{ kind: 'burj_al_arab',       worldY: 11550, side: 1, offset: 18 },
+  { kind: 'dubai_creek',        worldY: 11550, side: 1, offset: 8 },
   { kind: 'burj_khalifa',       worldY: 11750, side: 1, offset: 24 },
-  { kind: 'dubai_marina',       worldY: 11900, side: 1, offset: 12 },
+  // Sharjah sits just east of Dubai (after the Dubai cluster)
+  { kind: 'sharjah',            worldY: 12100, side: 1, offset: 6 },
 
   // Stage 3 — Dubai → Muscat
+  { kind: 'strait_of_hormuz',   worldY: 14500, side: 0, waterX: 0 },
   { kind: 'musandam_cliffs',    worldY: 14600, side: 1, offset: 4 },
   { kind: 'mutrah_corniche',    worldY: 17200, side: 1, offset: 6 },
   { kind: 'al_jalali_fort',     worldY: 17500, side: 1, offset: 10 },
