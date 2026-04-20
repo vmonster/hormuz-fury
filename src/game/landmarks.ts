@@ -7,8 +7,9 @@ import * as Phaser from 'phaser';
 export type LandmarkKind =
   | 'burj_khalifa'
   | 'palm_jumeirah'
-  | 'burj_al_arab'
-  | 'dubai_marina'
+  | 'dubai_creek'
+  | 'sharjah'
+  | 'strait_of_hormuz'
 
   | 'sheikh_zayed_mosque'
   | 'louvre_ad'
@@ -32,7 +33,10 @@ export type LandmarkKind =
   | 'sultan_qaboos_mosque'
   | 'mutrah_corniche'
   | 'al_jalali_fort'
-  | 'muscat_opera';
+  | 'muscat_opera'
+  | 'bushehr_port'
+  | 'kish_island'
+  | 'bandar_abbas';
 
 export interface LandmarkDef {
   kind: LandmarkKind;
@@ -557,7 +561,7 @@ export const LANDMARKS: Record<LandmarkKind, LandmarkDef> = {
   },
   doha_skyline: {
     kind: 'doha_skyline',
-    name: 'DOHA SKYLINE',
+    name: 'DOHA',
     hint: 'West Bay towers',
     w: 92, h: 100,
     draw: (g) => {
@@ -1318,167 +1322,303 @@ export const LANDMARKS: Record<LandmarkKind, LandmarkDef> = {
       for (let y = 52; y < 128; y += 4) r(g, 0xaaccdd, 76, y, 1, 1);
     },
   },
-  burj_al_arab: {
-    kind: 'burj_al_arab',
-    name: 'BURJ AL ARAB',
-    hint: 'Sail-shaped luxury hotel with helipad',
-    w: 44, h: 130,
+  dubai_creek: {
+    kind: 'dubai_creek',
+    name: 'DUBAI CREEK',
+    hint: 'Historic trading heart with wooden dhows',
+    w: 54, h: 34,
     draw: (g) => {
-      const white = 0xf4f0e4;
-      const whiteL = 0xfffcf0;
-      const whiteD = 0xc8c4b0;
-      const whiteDD = 0x8a8674;
-      const glass = 0x3a6a8a;
-      const glassL = 0x6aa5d0;
-      const glassD = 0x1a3a5a;
-      // causeway to island
-      r(g, 0x5a5a5a, 0, 124, 18, 4);
-      r(g, 0x7a7a7a, 0, 124, 18, 1);
-      r(g, 0xe0d8a0, 2, 125, 14, 1);
-      // artificial island base
-      r(g, 0xc4b498, 16, 118, 22, 10);
-      r(g, 0xd4c4a8, 18, 118, 18, 8);
-      r(g, 0xe8d8b8, 18, 118, 18, 1);
-      // SHADOW side of sail (sweeping curve) — left concave edge
-      for (let y = 6; y < 120; y++) {
-        const t = (y - 6) / 114;
-        // sail right edge (mast side) — slight outward curve
-        const rightX = 34 - Math.sin(t * Math.PI) * 2;
-        // sail left edge — deep concave sweep
-        const leftX = 10 + Math.pow(t, 1.6) * 10;
-        // shadow column
-        r(g, whiteDD, leftX, y, 1, 1);
-        // body
-        r(g, whiteD, leftX + 1, y, 1, 1);
-        r(g, white, leftX + 2, y, Math.max(0, rightX - leftX - 3), 1);
-        // highlight near mast
-        r(g, whiteL, rightX - 1, y, 1, 1);
-        r(g, whiteD, rightX, y, 1, 1);
-      }
-      // sail mast on mast side (vertical spine)
-      r(g, 0x1a1a1a, 34, 0, 2, 124);
-      r(g, 0x3a3a3a, 35, 0, 1, 124);
-      // diagonal crossbraces (truss pattern)
-      for (let i = 0; i < 8; i++) {
-        const y0 = 12 + i * 14;
-        r(g, 0x2a2a2a, 28, y0, 8, 1);
-        // X brace
-        for (let k = 0; k < 7; k++) {
-          r(g, 0x4a4a4a, 28 + k, y0 + k + 1, 1, 1);
-          r(g, 0x4a4a4a, 35 - k, y0 + k + 1, 1, 1);
-        }
-      }
-      // glass atrium in the middle of the sail (the huge interior)
-      for (let y = 18; y < 110; y += 4) {
-        const t = (y - 6) / 114;
-        const leftX = 10 + Math.pow(t, 1.6) * 10;
-        const rightX = 34 - Math.sin(t * Math.PI) * 2;
-        const cx = (leftX + rightX) / 2;
-        r(g, glass, cx - 3, y, 6, 3);
-        r(g, glassL, cx - 3, y, 6, 1);
-        r(g, glassD, cx - 3, y + 2, 6, 1);
-      }
-      // mast tip
-      r(g, 0x1a1a1a, 34, -2, 2, 4);
-      r(g, 0xff4a4a, 34, -2, 2, 1);
-      // helipad cantilever at top (signature — juts out to the right)
-      r(g, 0x4a4a4a, 36, 16, 8, 2);
-      r(g, 0x6a6a6a, 36, 14, 8, 3);
-      r(g, 0xe0e0e0, 36, 12, 8, 3);
-      r(g, 0xd6443a, 38, 13, 4, 1);
-      r(g, 0xffffff, 39, 13, 2, 1);
-      // helipad H marking
-      r(g, 0xffffff, 38, 14, 1, 2);
-      r(g, 0xffffff, 41, 14, 1, 2);
-      r(g, 0xffffff, 39, 15, 2, 1);
-      // Skyview Bar cantilever (lower, other side)
-      r(g, 0x4a4a4a, 6, 34, 6, 2);
-      r(g, 0x6a6a6a, 6, 32, 6, 3);
-      r(g, 0xaaccdd, 7, 30, 4, 3);
-      r(g, 0x3a6a8a, 8, 31, 2, 2);
-      // base foundation lights
-      for (let lx = 18; lx < 38; lx += 3) r(g, 0xffe680, lx, 122, 1, 1);
+      const tan = 0xcfb484;
+      const tanL = 0xe8d0a0;
+      const tanD = 0x9a8054;
+      const wood = 0x6a4828;
+      const woodL = 0x8a6840;
+      const woodD = 0x3a2812;
+      const water = 0x0e4870;
+      const waterL = 0x2a68a0;
+      const dark = 0x2a1a10;
+      // creek water on left
+      r(g, water, 0, 24, 20, 10);
+      r(g, waterL, 0, 24, 20, 1);
+      r(g, 0xffffff, 2, 28, 2, 1);
+      r(g, 0xffffff, 10, 30, 2, 1);
+      // corniche
+      r(g, tanD, 20, 26, 34, 8);
+      r(g, tan, 20, 26, 34, 1);
+      // large wooden dhow on creek
+      r(g, wood, 2, 22, 16, 3);
+      r(g, woodD, 2, 25, 16, 1);
+      r(g, woodL, 2, 22, 16, 1);
+      r(g, dark, 9, 12, 1, 10); // mast
+      r(g, 0xe8ddc0, 10, 14, 6, 7); // lateen sail
+      r(g, tanD, 10, 14, 6, 1);
+      // small abra ferry
+      r(g, wood, 22, 23, 8, 2);
+      r(g, dark, 24, 20, 1, 3);
+      // bastakiya house 1 (with windcatcher)
+      r(g, tanL, 22, 10, 10, 16);
+      r(g, tan, 22, 10, 10, 1);
+      r(g, tanD, 31, 10, 1, 16);
+      r(g, wood, 21, 9, 12, 1);
+      r(g, tan, 25, 2, 4, 8);
+      r(g, tanL, 25, 2, 4, 1);
+      r(g, dark, 25, 4, 4, 1);
+      r(g, dark, 24, 14, 2, 3);
+      r(g, dark, 29, 14, 2, 3);
+      r(g, dark, 26, 20, 2, 6);
+      // bastakiya house 2
+      r(g, tanL, 34, 14, 10, 12);
+      r(g, tan, 34, 14, 10, 1);
+      r(g, tanD, 43, 14, 1, 12);
+      r(g, wood, 33, 13, 12, 1);
+      r(g, tan, 37, 6, 4, 8);
+      r(g, tanL, 37, 6, 4, 1);
+      r(g, dark, 37, 8, 4, 1);
+      r(g, dark, 36, 18, 2, 3);
+      r(g, dark, 40, 18, 2, 3);
+      // souk arches (right)
+      r(g, tanL, 46, 16, 8, 10);
+      r(g, tanD, 46, 16, 8, 1);
+      r(g, dark, 47, 20, 2, 3);
+      r(g, dark, 51, 20, 2, 3);
     },
   },
-  dubai_marina: {
-    kind: 'dubai_marina',
-    name: 'DUBAI MARINA',
-    hint: 'Tower cluster around the yacht basin',
-    w: 72, h: 120,
+  strait_of_hormuz: {
+    kind: 'strait_of_hormuz',
+    name: '⚠  STRAIT OF HORMUZ  ⚠',
+    hint: 'Tightest chokepoint — the world\'s busiest oil passage',
+    w: 120, h: 32,
     draw: (g) => {
-      // marina water at base
-      r(g, 0x0a3d66, 0, 110, 72, 10);
-      r(g, 0x1a5d86, 0, 110, 72, 1);
-      // docked yachts
-      r(g, 0xffffff, 4, 112, 5, 2);
-      r(g, 0x1a1a1a, 6, 110, 1, 2);
-      r(g, 0xffffff, 14, 114, 4, 2);
-      r(g, 0xffffff, 26, 112, 6, 2);
-      r(g, 0x1a1a1a, 29, 110, 1, 2);
-      r(g, 0xffffff, 42, 114, 5, 2);
-      r(g, 0xffffff, 56, 112, 6, 2);
-      r(g, 0x1a1a1a, 58, 110, 1, 2);
-      // promenade
-      r(g, 0x8a7a5a, 0, 108, 72, 2);
-      // tower definitions: [x, topY, w, body, crown]
-      // crown 0=antenna, 1=twisted top (Cayan), 2=crown disc (princess), 3=flat, 4=pyramid
-      const towers: [number, number, number, number, number][] = [
-        [2, 60, 8, 0x4a5a7a, 3],   // left filler
-        [11, 40, 9, 0x5a6a8a, 2],  // princess tower (crown)
-        [21, 18, 10, 0x3a4a6a, 1], // cayan tower (twisted)
-        [32, 8, 9, 0x4a5a7a, 0],   // tallest w antenna
-        [42, 24, 10, 0x6a7a9a, 4], // pyramid
-        [53, 46, 8, 0x4a5a7a, 3],  // shorter
-        [62, 54, 8, 0x5a6a8a, 0],  // right filler
-      ];
-      for (const [x, topY, w, color, crown] of towers) {
-        const h = 108 - topY;
-        // shadow
-        r(g, 0x1a2a3a, x, topY, 2, h);
-        // body
-        r(g, color, x + 1, topY, w - 1, h);
-        // glass highlight columns
-        r(g, 0x8aa0c0, x + 2, topY, 1, h);
-        r(g, 0xaac0e0, x + w - 1, topY, 1, h);
-        // floor bands every 6
-        for (let by = topY + 4; by < 108; by += 6) {
-          r(g, 0x2a3a50, x + 1, by, w - 1, 1);
-        }
-        // window grid
-        for (let wy = topY + 5; wy < 106; wy += 3) {
-          const seed = (wy + x * 2) % 9;
-          r(g, seed < 6 ? 0xffe680 : 0x3a4a5a, x + 3, wy, 1, 1);
-          r(g, seed < 5 ? 0xffe680 : 0x3a4a5a, x + w - 3, wy, 1, 1);
-        }
-        // crown
-        if (crown === 0) {
-          r(g, 0x1a1a1a, x + Math.floor(w / 2), topY - 8, 1, 8);
-          r(g, 0xff4a4a, x + Math.floor(w / 2), topY - 8, 1, 1);
-          r(g, 0xff4a4a, x + Math.floor(w / 2), topY - 4, 1, 1);
-        } else if (crown === 1) {
-          // twisted top — stepped rotated squares
-          r(g, color, x + 1, topY - 2, w - 1, 2);
-          r(g, color, x + 2, topY - 4, w - 3, 2);
-          r(g, color, x + 3, topY - 6, w - 5, 2);
-          r(g, 0x8aa0c0, x + 3, topY - 6, w - 5, 1);
-          r(g, 0x1a1a1a, x + Math.floor(w / 2), topY - 10, 1, 4);
-        } else if (crown === 2) {
-          // crown disc
-          r(g, 0xaac0e0, x, topY - 2, w + 1, 2);
-          r(g, 0xaac0e0, x + 1, topY - 4, w - 1, 2);
-          r(g, 0xaac0e0, x + 2, topY - 5, w - 3, 1);
-          r(g, 0x1a1a1a, x + Math.floor(w / 2), topY - 9, 1, 4);
-          r(g, 0xff4a4a, x + Math.floor(w / 2), topY - 9, 1, 1);
-        } else if (crown === 4) {
-          r(g, color, x + 1, topY - 2, w - 1, 2);
-          r(g, color, x + 2, topY - 4, w - 3, 2);
-          r(g, color, x + 3, topY - 6, w - 5, 2);
-          r(g, 0x1a1a1a, x + Math.floor(w / 2), topY - 10, 1, 4);
-        } else {
-          // flat — parapet
-          r(g, 0x3a4a60, x + 1, topY - 1, w - 1, 1);
-        }
-      }
+      const red = 0xc83a3a;
+      const redL = 0xe85a5a;
+      const yellow = 0xffcc33;
+      const yellowL = 0xffe680;
+      const dark = 0x1a1a1a;
+      const white = 0xf0f0f0;
+      const water = 0x0a2944;
+      const buoy = (bx: number) => {
+        // anchor chain shimmer below
+        r(g, water, bx - 1, 24, 6, 4);
+        // floating base
+        r(g, dark, bx - 1, 20, 6, 4);
+        // striped buoy body (red/white bands)
+        r(g, red, bx, 8, 4, 12);
+        r(g, white, bx, 11, 4, 2);
+        r(g, white, bx, 16, 4, 2);
+        r(g, redL, bx, 8, 1, 12);
+        // top beacon
+        r(g, dark, bx, 4, 4, 4);
+        r(g, yellowL, bx + 1, 5, 2, 2);
+        r(g, yellow, bx, 2, 4, 2);
+        r(g, yellowL, bx + 1, 0, 2, 2);
+      };
+      // left buoy + right buoy flanking the corridor
+      buoy(6);
+      buoy(110);
+      // Chevron warning arrows pointing inward
+      r(g, yellow, 22, 14, 2, 1);
+      r(g, yellow, 24, 13, 2, 3);
+      r(g, yellow, 26, 14, 2, 1);
+      r(g, yellow, 92, 14, 2, 1);
+      r(g, yellow, 94, 13, 2, 3);
+      r(g, yellow, 96, 14, 2, 1);
+      // small rope markers between (subtle)
+      r(g, yellowL, 40, 14, 2, 1);
+      r(g, yellowL, 50, 14, 2, 1);
+      r(g, yellowL, 60, 14, 2, 1);
+      r(g, yellowL, 70, 14, 2, 1);
+      r(g, yellowL, 80, 14, 2, 1);
+    },
+  },
+  sharjah: {
+    kind: 'sharjah',
+    name: 'SHARJAH',
+    hint: 'Al Noor Mosque on the corniche',
+    w: 56, h: 55,
+    draw: (g) => {
+      const tan = 0xd4c8a8;
+      const tanL = 0xf0e4bc;
+      const tanD = 0xa89870;
+      const dome = 0xe8dcb0;
+      const domeL = 0xfff4d0;
+      const domeD = 0xa89870;
+      const dark = 0x2a1a10;
+      // corniche road
+      r(g, 0x5a5a5a, 0, 50, 56, 5);
+      r(g, 0xe0e0e0, 2, 52, 52, 1);
+      // mosque base
+      r(g, tan, 14, 32, 28, 18);
+      r(g, tanL, 14, 32, 28, 1);
+      r(g, tanD, 41, 32, 1, 18);
+      // central dome
+      r(g, dome, 20, 22, 16, 10);
+      r(g, domeL, 20, 22, 16, 1);
+      r(g, domeL, 21, 21, 14, 1);
+      r(g, dome, 23, 19, 10, 2);
+      r(g, dome, 25, 18, 6, 1);
+      r(g, domeD, 20, 31, 16, 1);
+      r(g, 0xe8d050, 27, 14, 2, 4);
+      // twin minarets flanking the mosque
+      r(g, tanL, 10, 18, 3, 32);
+      r(g, tanD, 12, 18, 1, 32);
+      r(g, dome, 9, 14, 5, 4);
+      r(g, 0xe8d050, 11, 12, 1, 2);
+      r(g, tanL, 43, 18, 3, 32);
+      r(g, tanD, 45, 18, 1, 32);
+      r(g, dome, 42, 14, 5, 4);
+      r(g, 0xe8d050, 44, 12, 1, 2);
+      // side domes
+      r(g, dome, 15, 30, 4, 3);
+      r(g, dome, 37, 30, 4, 3);
+      // mosque windows
+      for (let x = 17; x <= 37; x += 5) r(g, dark, x, 38, 3, 5);
+      // flanking towers
+      r(g, 0x3a4a6a, 48, 20, 5, 30);
+      r(g, 0x5a6a8a, 48, 20, 1, 30);
+      for (let wy = 22; wy < 48; wy += 3) r(g, wy % 9 < 5 ? 0xffe680 : 0x3a4a5a, 50, wy, 1, 1);
+      r(g, 0x1a1a1a, 50, 16, 1, 4);
+      r(g, 0x3a4a6a, 2, 26, 5, 24);
+      r(g, 0x5a6a8a, 2, 26, 1, 24);
+      for (let wy = 28; wy < 48; wy += 3) r(g, wy % 9 < 5 ? 0xffe680 : 0x3a4a5a, 4, wy, 1, 1);
+    },
+  },
+  bushehr_port: {
+    kind: 'bushehr_port',
+    name: 'BUSHEHR',
+    hint: 'Persian Gulf port city — historic trading hub',
+    w: 54, h: 40,
+    draw: (g) => {
+      const tan = 0xd4b478;
+      const tanL = 0xe8cc8a;
+      const tanD = 0xa68a58;
+      const dark = 0x3a2a1a;
+      const wood = 0x6a4a2a;
+      // ground/shore
+      r(g, tanD, 0, 36, 54, 4);
+      // dock extending right toward water
+      r(g, 0x8a7a5a, 42, 32, 12, 4);
+      r(g, 0xa89868, 42, 32, 12, 1);
+      // windcatcher (badgir) — tall, left
+      r(g, tanL, 4, 10, 8, 26);
+      r(g, tan, 4, 10, 8, 1);
+      r(g, tanD, 11, 10, 1, 26);
+      // windcatcher slatted top
+      r(g, dark, 3, 4, 10, 6);
+      r(g, tan, 4, 5, 1, 4);
+      r(g, tan, 6, 5, 1, 4);
+      r(g, tan, 8, 5, 1, 4);
+      r(g, tan, 10, 5, 1, 4);
+      r(g, dark, 6, 26, 2, 2);
+      // colonial warehouse (center)
+      r(g, tan, 16, 18, 22, 18);
+      r(g, tanL, 16, 18, 22, 1);
+      r(g, tanD, 37, 18, 1, 18);
+      r(g, wood, 15, 16, 24, 2);
+      // Persian arched windows
+      r(g, dark, 19, 24, 3, 5);
+      r(g, dark, 26, 24, 3, 5);
+      r(g, dark, 33, 24, 3, 5);
+      r(g, tan, 19, 24, 3, 1);
+      r(g, tan, 26, 24, 3, 1);
+      r(g, tan, 33, 24, 3, 1);
+      // door
+      r(g, dark, 26, 30, 4, 6);
+      // dhow at dock
+      r(g, wood, 43, 30, 10, 2);
+      r(g, dark, 47, 22, 1, 10);
+      r(g, 0xe8ddc0, 44, 24, 6, 6);
+      r(g, tanD, 44, 24, 6, 1);
+    },
+  },
+  kish_island: {
+    kind: 'kish_island',
+    name: 'KISH ISLAND',
+    hint: 'Iranian free-trade resort island',
+    w: 44, h: 26,
+    draw: (g) => {
+      const sand = 0xdcc488;
+      const sandL = 0xf0dca0;
+      const sandD = 0xb09860;
+      const green = 0x3e6b3a;
+      // island base
+      r(g, sandD, 2, 18, 40, 6);
+      r(g, sand, 4, 16, 36, 6);
+      r(g, sandL, 6, 16, 32, 1);
+      // resort hotel (center)
+      r(g, 0xf4ecd4, 16, 6, 12, 12);
+      r(g, 0xffffff, 16, 6, 12, 1);
+      r(g, 0xc8b88a, 27, 6, 1, 12);
+      r(g, 0x3a6a8a, 18, 9, 8, 1);
+      r(g, 0x3a6a8a, 18, 12, 8, 1);
+      r(g, 0x3a6a8a, 18, 15, 8, 1);
+      r(g, 0xc65a3a, 15, 5, 14, 1);
+      // palm trees — left
+      r(g, 0x6a4a2a, 9, 12, 1, 6);
+      r(g, green, 6, 9, 6, 2);
+      r(g, green, 8, 7, 3, 2);
+      // palm — right
+      r(g, 0x6a4a2a, 34, 12, 1, 6);
+      r(g, green, 31, 9, 6, 2);
+      r(g, green, 33, 7, 3, 2);
+      // beach sparkle
+      r(g, 0xffffff, 10, 20, 3, 1);
+      r(g, 0xffffff, 30, 21, 3, 1);
+    },
+  },
+  bandar_abbas: {
+    kind: 'bandar_abbas',
+    name: 'BANDAR ABBAS',
+    hint: 'Iran\'s main Gulf port at Hormuz',
+    w: 70, h: 50,
+    draw: (g) => {
+      const tan = 0xc4a078;
+      const tanL = 0xdcb888;
+      const tanD = 0x9a7848;
+      const dark = 0x2a1a10;
+      const bluedome = 0x3a7a9a;
+      const bluedomeL = 0x5a9ab8;
+      const metal = 0x6a6a6a;
+      // ground
+      r(g, tanD, 0, 44, 70, 6);
+      r(g, tan, 0, 43, 70, 1);
+      // mosque (left) with blue dome
+      r(g, tanL, 6, 26, 20, 18);
+      r(g, tan, 6, 26, 20, 1);
+      r(g, tanD, 25, 26, 1, 18);
+      r(g, bluedome, 10, 20, 12, 6);
+      r(g, bluedomeL, 10, 20, 12, 1);
+      r(g, bluedomeL, 11, 19, 10, 1);
+      r(g, bluedome, 13, 18, 6, 1);
+      r(g, 0xe8d050, 15, 15, 2, 3);
+      // minaret
+      r(g, tanL, 2, 14, 3, 30);
+      r(g, tanD, 4, 14, 1, 30);
+      r(g, bluedome, 1, 10, 5, 4);
+      r(g, 0xe8d050, 2, 8, 3, 2);
+      // mosque windows + door
+      r(g, dark, 10, 32, 2, 4);
+      r(g, dark, 15, 32, 2, 4);
+      r(g, dark, 20, 32, 2, 4);
+      r(g, dark, 14, 38, 4, 6);
+      // container crane frame
+      r(g, metal, 36, 10, 2, 34);
+      r(g, metal, 52, 10, 2, 34);
+      r(g, metal, 36, 10, 18, 2);
+      r(g, 0x3a3a3a, 36, 12, 18, 1);
+      r(g, 0x8a8a8a, 36, 10, 18, 1);
+      r(g, 0xffe680, 43, 12, 4, 3); // crane cab
+      r(g, metal, 44, 15, 1, 6);
+      // stacked containers on dock
+      r(g, 0xc83a3a, 32, 36, 6, 4); r(g, 0xe85a5a, 32, 36, 6, 1);
+      r(g, 0x3a7ab8, 40, 36, 6, 4); r(g, 0x5a9ad8, 40, 36, 6, 1);
+      r(g, 0xe8a048, 48, 36, 6, 4); r(g, 0xffc070, 48, 36, 6, 1);
+      r(g, 0x3aa848, 56, 36, 6, 4); r(g, 0x5ac868, 56, 36, 6, 1);
+      r(g, 0xc83a3a, 36, 32, 6, 4); r(g, 0xe85a5a, 36, 32, 6, 1);
+      r(g, 0x3a7ab8, 44, 32, 6, 4); r(g, 0x5a9ad8, 44, 32, 6, 1);
+      r(g, 0xe8a048, 52, 32, 6, 4); r(g, 0xffc070, 52, 32, 6, 1);
+      // dock edge
+      r(g, 0x5a5a5a, 60, 40, 10, 4);
+      r(g, 0x7a7a7a, 60, 40, 10, 1);
     },
   },
   musandam_cliffs: {
